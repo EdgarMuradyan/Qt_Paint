@@ -20,6 +20,7 @@
 
 
 
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -127,6 +128,14 @@ int main(int argc, char *argv[])
 
     mainWindow.statusBar()->showMessage("Status Bar");
     mainWindow.show();
+
+
+
+
+
+
+
+
 
     return a.exec();
 }

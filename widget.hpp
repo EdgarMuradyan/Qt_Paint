@@ -1,7 +1,6 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
-//#include "shape.h"
 #include <QWidget>
 #include <QString>
 #include <vector>
@@ -9,12 +8,9 @@
 #include <QRect>
 #include <QPainter>
 #include <QPen>
-
-enum class ShapeType{
-    Line,
-    Rectangle
-};
-
+#include <iostream>
+#include <sstream>
+#include "shape.h"
 
 
 class Widget : public QWidget
@@ -22,6 +18,7 @@ class Widget : public QWidget
     Q_OBJECT
 
 public:
+
     Widget(QWidget *parent = nullptr);
 
     ~Widget();
@@ -30,27 +27,22 @@ public:
     void mouseMoveEvent(QMouseEvent*) override;
     void paintEvent(QPaintEvent*) override;
 
-
-
 private:
 
-
     std::pair<QPointF, QPointF> m_coord;
-    std::vector<QLine> m_lines;
-    std::vector<QRect> m_rects;
-    ShapeType m_shape;
+    std::vector<Shape> m_shape;
+    ShapeType m_shapeType;
     void drowLine();
     void drowRect();
+    void drawShape();
 
 signals:
     void eventHappened(const QString&);
 
 public slots:
-
     void clearObjects();
     void selectRect();
     void selectLine();
-
 
 };
 

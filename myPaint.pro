@@ -10,6 +10,6 @@ TARGET = events
 INCLUDEPATH += .
 
 # Input
-HEADERS += logger.hpp widget.hpp \
+HEADERS += logger.hpp widget.hpp shape.h\
     shape.h
 SOURCES += logger.cpp main.cpp widget.cpp

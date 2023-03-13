@@ -1,14 +1,7 @@
 
 #include "logger.hpp"
 
-#include <QTextStream>
-#include <QVBoxLayout>
-#include <QDockWidget>
-#include <QFile>
-#include <QDate>
-#include <QTime>
 
-#include <iostream>
 
 Logger::Logger(QWidget* p) //: QDockWidget(p)
 {

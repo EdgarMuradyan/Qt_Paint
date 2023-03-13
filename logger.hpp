@@ -4,6 +4,13 @@
 
 #include <QTextEdit>
 #include <QWidget>
+#include <QTextStream>
+#include <QVBoxLayout>
+#include <QDockWidget>
+#include <QFile>
+#include <QDate>
+#include <QTime>
+#include <iostream>
 
 
 class Logger : public QWidget

@@ -1,20 +1,16 @@
 #include "widget.hpp"
-#include <iostream>
-#include <sstream>
 #include <QMouseEvent>
-
+#include "shape.h"
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
 {
     setMinimumSize(300, 600);
-    setMouseTracking(true);
+    setMouseTracking(true);  
 
 }
 
-Widget::~Widget()
-{
-}
+Widget::~Widget(){}
 
 void Widget::mousePressEvent(QMouseEvent* e)
 {
@@ -28,14 +24,14 @@ void Widget::mousePressEvent(QMouseEvent* e)
     }
     m_coord.second = e->pos();
 
-    if(m_shape == ShapeType::Line){
-        m_lines.push_back(QLine(m_coord.first.toPoint(), m_coord.second.toPoint()));
-    } else if (m_shape == ShapeType::Rectangle){
-        m_rects.push_back(QRect(m_coord.first.toPoint(), m_coord.second.toPoint()));
+
+
+    if(m_shapeType == ShapeType::LINE){
+        m_shape.push_back(Line(m_coord.first.toPoint(), m_coord.second.toPoint()));
+    } else if (m_shapeType == ShapeType::RECT){
+        m_shape.push_back(Rect(m_coord.first.toPoint(), m_coord.second.toPoint()));
+
     }
-
-
-
 
 
     m_coord.first = QPointF();
@@ -55,18 +51,65 @@ void Widget::mouseMoveEvent(QMouseEvent* e)
 
 void Widget::paintEvent(QPaintEvent*)
 {
-   // if(m_shape == Shape::Line){
-    //    drowLine();
-   // } else if (m_shape == Shape::Rectangle){
-    ////    drowRect();
-   // }
 
-    drowLine();
-    drowRect();
+    drawShape();
+    //drowLine();
+    //drowRect();
+}
+
+
+void Widget::drawShape()
+{
+    QPainter *qp = new QPainter(this);
+
+    for(size_t i = 0; i < m_shape.size(); ++i){
+        m_shape[i].drawShape(qp);
+
+        //std::cout<<i;
+    }
+    //ste mtacum em cast ban anem tenam inch a Line a te Rect ??
+    //bayc eti indz esiminch chi ta
+
+
+
+
+    QPen p(Qt::red);
+    p.setStyle(Qt::DashLine);
+    qp->setPen(p);
+
+    //naxnakan patker
+    if (!m_coord.first.isNull() && m_shapeType==ShapeType::RECT)
+    {
+        qp->drawRect(Rect(m_coord.first.toPoint(), m_coord.second.toPoint()));
+    } else if(!m_coord.first.isNull() && m_shapeType==ShapeType::LINE){
+        qp->drawLine(Line(m_coord.first.toPoint(), m_coord.second.toPoint()));
+    }
+
 }
 
 
 
+void Widget::clearObjects()
+{
+    while(!m_shape.empty()){
+        m_shape.pop_back();
+    }
+
+    update();
+}
+
+void Widget::selectRect()
+{
+    m_shapeType = ShapeType::RECT;
+}
+
+void Widget::selectLine()
+{
+    m_shapeType = ShapeType::LINE;
+}
+
+
+ /*
 void Widget::drowLine()
 {
     QPainter qp(this);
@@ -80,20 +123,18 @@ void Widget::drowLine()
     qp.setPen(p);
 
     //naxnakan patker
-    if (!m_coord.first.isNull() && m_shape==ShapeType::Line)
+    if (!m_coord.first.isNull() && m_shapeType==ShapeType::LINE)
     {
-
-        qp.drawLine(QLine(m_coord.first.toPoint(), m_coord.second.toPoint()));
+        qp.drawLine(Line(m_coord.first.toPoint(), m_coord.second.toPoint()));
     }
-
 }
 
 void Widget::drowRect()
 {
     QPainter qp(this);
-    for (auto it:m_rects)
+    for (auto it:m_shape)
     {
-        qp.drawRect(it);
+        it.drowShape();
     }
 
     QPen p(Qt::red);
@@ -101,36 +142,9 @@ void Widget::drowRect()
     qp.setPen(p);
 
     //naxnakan patker
-    if (!m_coord.first.isNull() && m_shape==ShapeType::Rectangle)
+    if (!m_coord.first.isNull() && m_shapeType==ShapeType::RECT)
     {
-        qp.drawRect(QRect(m_coord.first.toPoint(), m_coord.second.toPoint()));
+        qp.drawRect(Rect(m_coord.first.toPoint(), m_coord.second.toPoint()));
     }
-
 }
-
-void Widget::clearObjects()
-{
-    while(!m_lines.empty()){
-        m_lines.pop_back();
-    }
-
-    while(!m_rects.empty()){
-        m_rects.pop_back();
-    }
-
-    update();
-}
-
-void Widget::selectRect()
-{
-    m_shape = ShapeType::Rectangle;
-}
-
-void Widget::selectLine()
-{
-    m_shape = ShapeType::Line;
-}
-
-
-
-
+*/
