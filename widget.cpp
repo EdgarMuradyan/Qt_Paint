@@ -27,9 +27,9 @@ void Widget::mousePressEvent(QMouseEvent* e)
 
 
     if(m_shapeType == ShapeType::LINE){
-        m_shape.push_back(Line(m_coord.first.toPoint(), m_coord.second.toPoint()));
+        m_shape.push_back(new Line(m_coord.first.toPoint(), m_coord.second.toPoint()));
     } else if (m_shapeType == ShapeType::RECT){
-        m_shape.push_back(Rect(m_coord.first.toPoint(), m_coord.second.toPoint()));
+        m_shape.push_back(new Rect(m_coord.first.toPoint(), m_coord.second.toPoint()));
 
     }
 
@@ -63,12 +63,8 @@ void Widget::drawShape()
     QPainter *qp = new QPainter(this);
 
     for(size_t i = 0; i < m_shape.size(); ++i){
-        m_shape[i].drawShape(qp);
-
-        //std::cout<<i;
+        m_shape[i]->drawShape(qp);
     }
-    //ste mtacum em cast ban anem tenam inch a Line a te Rect ??
-    //bayc eti indz esiminch chi ta
 
 
 
@@ -91,9 +87,11 @@ void Widget::drawShape()
 
 void Widget::clearObjects()
 {
-    while(!m_shape.empty()){
-        m_shape.pop_back();
+    for (auto shp : m_shape){
+        delete shp;
     }
+
+    m_shape.clear();
 
     update();
 }

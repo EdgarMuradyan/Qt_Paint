@@ -15,11 +15,8 @@ enum class ShapeType{
 class Shape
 {
 public:  
-    virtual void drawShape(QPainter *_qp){
-        _qp->drawRect(1,2,3,5);
-        //QWidget *ww = new Q;
-        std::cout<<"bbbbbbbbbbbbbbbbbbbbbbbbb";
-    };
+    virtual void drawShape(QPainter *_qp) =0;
+    virtual ~Shape() {}
 
 private:
 };
@@ -28,26 +25,20 @@ private:
 class Rect :public Shape, public QRect
 {
 public:
-    Rect(const QPoint &atopLeft, const QPoint &abottomRight) noexcept
-        : x1(atopLeft.x()), y1(atopLeft.y()), x2(abottomRight.x()), y2(abottomRight.y()) {
 
-        setCoords(x1, y1, x2, y2);
+   Rect(const QPoint &atopLeft, const QPoint &abottomRight) noexcept
+   {
 
-        QPainter qp;
-        qp.drawRect(x1, y1, x2, y2);
-
+       // setRect(x1, y1, x2, y2);
+        setCoords(atopLeft.x(), atopLeft.y(), abottomRight.x(), abottomRight.y());
 
     }
 
-    void drawShapee(QPainter *_qp){
-        _qp->drawRect(x1, y1, x2, y2);
+    void drawShape(QPainter *_qp) override{
+        _qp->drawRect(*this);
     };
 
 private:
-    int x1;
-    int y1;
-    int x2;
-    int y2;
 };
 
 
@@ -60,9 +51,8 @@ public:
         setP2(pt2_);
     }
 
-    void drawShapee(QPainter *_qp){
-        _qp->drawLine(pt1, pt2);
-        std::cout<<"aaaaaaaaaaaaaaaaaaa";
+    void drawShape(QPainter *_qp) override{
+        _qp->drawLine(*this);
     };
 
 private:

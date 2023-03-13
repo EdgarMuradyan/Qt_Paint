@@ -30,7 +30,7 @@ public:
 private:
 
     std::pair<QPointF, QPointF> m_coord;
-    std::vector<Shape> m_shape;
+    std::vector<Shape*> m_shape;
     ShapeType m_shapeType;
     void drowLine();
     void drowRect();
