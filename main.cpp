@@ -17,6 +17,7 @@
 #include <QDockWidget>
 #include <QStatusBar>
 #include <QIcon>
+#include "main_window.h"
 
 
 
@@ -24,6 +25,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    MainWindow *mainWindow = new MainWindow();
+    mainWindow->show();
+
+    /*
     QWidget *wid = new QWidget;
     Widget *w = new Widget(wid); ; //for peinting
     Logger *l = new Logger;
@@ -32,6 +37,10 @@ int main(int argc, char *argv[])
 
     //set background
     wid->setStyleSheet("background-color: white+3;");
+
+    MainWindow* main_Window = new MainWindow();
+    main_Window->show();
+
 
     //        obj,     Signal Type,     esim, func name to do
     //connect(button, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
@@ -81,7 +90,6 @@ int main(int argc, char *argv[])
     menuBar->addMenu(_file);
     menuBar->addMenu(_shape);
 
-
     QAction* _exit = new QAction(QString("Exit"), &mainWindow);
     _file->addAction(_exit);
 
@@ -89,7 +97,6 @@ int main(int argc, char *argv[])
     QAction* _line = new QAction(QString("Line"), &mainWindow);
     QAction* _rect = new QAction(QString("Rectangle"), &mainWindow);
     QAction* _clear = new QAction(QString("Clear"), &mainWindow);
-
 
     //set icons for Actions
     QIcon _lineIcon("C:/Users/home_/Desktop/Synopsys/Qt/Qt_Paint/Line.png");
@@ -107,12 +114,8 @@ int main(int argc, char *argv[])
     _shape->addAction(_rect);
     _shape->addAction(_clear);
 
-
-
-    //conects
+   //conects
     QObject::connect(_exit, &QAction::triggered, &mainWindow, &QMainWindow::close);
-
-
 
     mainWindow.setMinimumSize(600, 600);
     mainWindow.setCentralWidget(wid);
@@ -128,15 +131,7 @@ int main(int argc, char *argv[])
 
     mainWindow.statusBar()->showMessage("Status Bar");
     mainWindow.show();
-
-
-
-
-
-
-
-
-
+*/
     return a.exec();
 }
 
