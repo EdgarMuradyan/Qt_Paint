@@ -5,6 +5,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include "widget.hpp"
+#include "dialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow{parent},
@@ -19,9 +20,13 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::saveWidget()
 {
-    constexpr const char* fileName = "canvas.png";
-    const QPixmap pm = m_widget->grab();
-    pm.save(fileName);
+    QPixmap *pm = new QPixmap(m_widget->grab());
+    Dialog dialog(pm, this);
+
+
+    dialog.show();
+    dialog.exec();
+
 }
 
 void MainWindow::createFileMenu()

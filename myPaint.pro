@@ -11,7 +11,9 @@ INCLUDEPATH += .
 
 # Input
 HEADERS += logger.hpp widget.hpp shape.h\
+    dialog.h \
     main_window.h \
     shape.h
 SOURCES += logger.cpp main.cpp widget.cpp \
+    dialog.cpp \
     main_window.cpp
